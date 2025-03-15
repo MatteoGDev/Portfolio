@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Progetti</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2a9d8f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu li {
+            margin: 0 20px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .menu a:hover {
+            background-color: #1d4843;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project {
+            border: 2px solid #1d4843;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+
+        .project img {
+            width: 100%;
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .project h3 {
+            color: #1d4843;
+            margin-top: 10px;
+        }
+
+        .project p {
+            margin: 10px 0;
+        }
+
+        .project a {
+            display: inline-block;
+            margin-top: 10px;
+            color: white;
+            background-color: #2a9d8f;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3 ease;
+        }
+
+        .project a:hover {
+            background-color: #1d4843;
+        }
+
+
+
+        footer {
+            background-color: #2a9d8f;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                font-size: 20px;
+            }
+
+            .menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                transition: max-height 0.3s ease-in-out;
+                overflow: hidden;
+                max-height: 0;
+            }
+
+            .menu li {
+                text-align: center;
+                margin: 10px 0;
+            }
+
+            .menu.active {
+                display: flex;
+                max-height: 500px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .project img {
+                height: auto;
+                /* Rimuove l'altezza fissa */
+                object-fit: contain;
+                /* Mostra l'intera immagine senza ritagliarla */
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Benvenuto nel mio Portfolio</h1>
+        <nav class="navbar">
+            <div class="logo"></div>
+            <ul class="menu">
+                <li><a href="index.html">Profilo</a></li>
+                <li><a href="progetti.html">Progetti</a></li>
+                <li><a href="contatti.html">Contatti</a></li>
+            </ul>
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        </nav>
+    </header>
+
+    <main>
+
+
+
+        <h2>I miei Progetti</h2>
+        <div class="project-list">
+            <div class="project">
+                <img src="img/toDoList.png" alt="Immagine progetto 1">
+                <h3>To-Do List</h3>
+                <p>Un'applicazione per gestire le tue attività quotidiane utilizzando Local Storage.</p>
+                <a href="progetti/todo-list/index.html" target="_blank">Guarda il progetto</a>
+            </div>
+            <div class="project">
+                <img src="img/GeneratorePassword.png" alt="Immagine progetto 2">
+                <h3>Generatore di Password</h3>
+                <p>Un'applicazione per la creazione di password complesse</p>
+                <a href="progetti/generatore-password/index.html" target="_blank">Guarda il progetto</a>
+            </div>
+            <div class="project">
+                <img src="img/PrenotazioneRistorante.png" alt="Immagine progetto 3">
+                <h3>Prenotazione Ristorante</h3>
+                <p>Un'applicazione per le prenotazioni ad un ristorante</p>
+                <a href="progetti/prenotazione-ristorante/index.html" target="_blank">Guarda il progetto</a>
+            </div>
+            <div class="project">
+                <img src="img/Logo.PNG" alt="Immagine progetto 4">
+                <h3>Esame di Fine Corso</h3>
+                <p>Un'applicazione per le prenotazioni ad un ristorante</p>
+                <a href="progetti/ITS_Supermarket/homepage.html" target="_blank">Guarda il progetto</a>
+            </div>
+            <div class="project">
+                <img src="img/meteo.png" alt="Immagine progetto 5">
+                <h3>App Meteo</h3>
+                <p>Un'applicazione per le prenotazioni ad un ristorante</p>
+                <a href="progetti/App Meteo/index.html" target="_blank">Guarda il progetto</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Il mio Portfolio</p>
+    </footer>
+
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            const menu = document.querySelector('.menu');
+            menu.classList.toggle('active');
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema di Prenotazione per Ristorante</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .bookings-container {
+            overflow-x: auto ;
+        }
+
+        .form-container,
+        .bookings-container {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        td:nth-child(5) {
+            max-width: 200px;
+            /* Imposta una larghezza massima */
+            word-wrap: break-word;
+            /* Permette al testo di andare a capo */
+            white-space: normal;
+            /* Permette l'andare a capo naturale */
+        }
+
+
+        th {
+            background-color: #f8f8f8;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+
+        .booking-form,
+        .bookings-container {
+            width: 48%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Ristorante da Tich</h1>
+
+        <div class="form-container">
+            <h2>Effettua una Prenotazione</h2>
+            <form id="booking-form">
+                <label for="name">Nome</label>
+                <input type="text" id="name" placeholder="Inserisci il nome" required>
+
+                <label for="phone">Numero di Telefono</label>
+                <input type="text" id="phone" placeholder="Inserisci il numero di telefono" required pattern="\d{10}"
+                    title="Il numero di telefono deve essere di 10 cifre">
+
+                <label for="date">Data Prenotazione</label>
+                <input type="date" id="date" placeholder="Inserisci la data prenotazione" required>
+
+                <label for="guests">Numero di Persone</label>
+                <input type="number" id="guests" placeholder="Inserisci il numero di persone" required min="1" required max="20">
+
+                <label for="comments">Commenti (Opzionale) </label>
+                <textarea id="comments"></textarea>
+
+                <button id="btn-prenota">Prenota</button>
+            </form>
+        </div>
+
+        <div class="bookings-container">
+            <h2>Prenotazioni</h2>
+            <table id="bookings-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Telefono</th>
+                        <th>Data</th>
+                        <th>Persone</th>
+                        <th>Commenti</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="bookings-list"></tbody>
+            </table>
+        </div>
+
+        <script>
+
+            document.addEventListener("DOMContentLoaded", () => {  /* Questo evento assicura che il codice JavaScript venga eseguito solo dopo che l'intero DOM.  utile per prevenire errori quando si tenta di accedere a elementi HTML che potrebbero non essere ancora stati caricati. */
+                const form = document.getElementById("booking-form")
+                const bookingList = document.getElementById("bookings-list")
+
+                // Carica prenotazioni dal Local Storage
+                let bookings = JSON.parse(localStorage.getItem("bookings")) || [] // Recupera le prenotazioni salvate in precedenza dal Local Storage. JSON.parse(...)  trasforma i dati JSON (stringhe) in oggetti JavaScript. In questo caso, "bookings" viene trasformato da una stringa di testo a un array di oggetti (le prenotazioni). || []: Se il Local Storage non contiene prenotazioni (null), si assegna un array vuoto per evitare errori.
+                displayBookings() // Questa funzione viene chiamata per mostrare le prenotazioni salvate nel Local Storage quando la pagina viene caricata per la prima volta.
+
+                // Evento di invio del form
+                form.addEventListener("submit", function (e) { //Aggiunge un evento "submit" al modulo. Quando l'utente invia il modulo, questa funzione viene eseguita.
+                    e.preventDefault(); // Previene il comportamento predefinito del modulo, che sarebbe quello di ricaricare la pagina. Invece, la gestione dell'invio sarà gestita tramite JavaScript
+
+                    const name = document.getElementById("name").value;    // Qui recuperiamo i valori inseriti nei vari campi del modulo
+                    const phone = document.getElementById("phone").value;
+                    const date = document.getElementById("date").value;
+                    const guests = document.getElementById("guests").value;
+                    const comments = document.getElementById("comments").value;
+
+                    // Verifica se il numero di telefono è composto da esattamente 10 cifre
+                    if (!/^\d{10}$/.test(phone)) {
+                        alert("Il numero di telefono deve essere composto da 10 cifre.");
+                        return;
+                    }
+                    
+
+
+                    if (!name || !phone || !date || !guests) {     // Verifica se i campi obbligatori sono stati compilati.
+                        alert("Compila tutti i campi obbligatori"); // Se uno di questi campi è vuoto, viene mostrato un messaggio di allerta
+                        return;
+                    }
+
+                    const newBooking = { name, phone, date, guests, comments };  // Crea un nuovo oggetto newBooking contenente i dati della prenotazione
+                    bookings.push(newBooking);  // Aggiunge l'oggetto newBooking all'array bookings (che contiene tutte le prenotazioni esistenti).
+
+                    // Salva nel Local Storage
+                    localStorage.setItem("bookings", JSON.stringify(bookings)) // Salva le prenotazioni aggiornate nel Local Storage. Poiché il Local Storage accetta solo stringhe, l'array bookings viene convertito in una stringa JSON con JSON.stringify().
+
+                    displayBookings(); // Dopo aver aggiornato l'array bookings, chiama la funzione
+                    form.reset(); // Resetta (svuota) tutti i campi del modulo dopo che l'utente ha inviato i dati.
+                });
+
+                // Mostra le prenotazioni
+                function displayBookings() {
+                    bookingList.innerHTML = ""; // Cancella tutto il contenuto attuale della tabella. Questo garantisce che, ogni volta che viene richiamata la funzione, la lista delle prenotazioni venga aggiornata correttamente senza duplicati.
+
+                    bookings.forEach((booking, index) => {  // Scorre (itera) ogni prenotazione presente nell'array bookings. Ogni elemento dell'array è un oggetto booking, e l'indice corrente dell'elemento viene rappresentato da index.
+                        const row = document.createElement("tr");  // Crea un nuovo elemento HTML <tr> (riga di tabella) per visualizzare i dati di una prenotazione.
+
+                        row.innerHTML = `       
+                            <td>${booking.name}</td>
+                            <td>${booking.phone}</td>
+                            <td>${booking.date}</td>
+                            <td>${booking.guests}</td>
+                            <td>${booking.comments}</td>
+                            <td>
+                                <button class="delete-btn" data-index="${index}">Elimina</button>
+                            </td>
+                            `; // row.innerHTML = ... Inserisce il contenuto HTML all'interno della riga creata. Usa template literals per includere dinamicamente i dati della prenotazione. Ogni campo di prenotazione viene inserito in una cella della tabella Viene anche creato un pulsante "Elimina" con una classe delete-btn e un attributo data-index che memorizza l'indice della prenotazione. Questo sarà utile per eliminare la prenotazione.
+
+                        bookingList.appendChild(row);  // Aggiunge la riga creata (<tr>) al corpo della tabella (<tbody>), che visualizza tutte le prenotazioni
+                    });
+
+                    // Aggiunge evento per eliminare prenotazione
+                    document.querySelectorAll(".delete-btn").forEach(button => {     // document.querySelectorAll('.delete-btn'): Seleziona tutti i pulsanti "Elimina" con la classe .delete-btn. 
+                        button.addEventListener("click", function () {                 // button.addEventListener('click', function() { ... }): Per ogni pulsante "Elimina", viene aggiunto un evento click. Quando l'utente clicca sul pulsante, viene eseguita la funzione associata.
+                            const index = this.getAttribute("data-index");           // Recupera l'attributo data-index dal pulsante, che corrisponde all'indice della prenotazione da eliminare.
+                            bookings.splice(index, 1);                               // Rimuove l'elemento all'indice specificato dall'array bookings utilizzando il metodo splice().
+                            localStorage.setItem("bookings", JSON.stringify(bookings)); //  Aggiorna il Local Storage con le prenotazioni modificate, rimuovendo la prenotazione eliminata. 
+                            displayBookings();     // Dopo aver eliminato una prenotazione, la funzione displayBookings() viene chiamata per aggiornare la visualizzazione delle prenotazioni.
+                        });
+                    });
+
+                }
+
+            });
+
+        </script>
+
+    </div>
+
+</body>
+
+</html>

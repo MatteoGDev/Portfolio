@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+             color: #333;
+        }
+
+        header {
+            background-color: #2a9d8f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu li {
+            margin: 0 20px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .menu a:hover {
+            background-color: #1d4843;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #1d4843;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-info div {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .contact-icons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            /* Centra le icone */
+            margin-top: 20px;
+        }
+
+        .contact-icons a {
+            display: inline-block;
+        }
+
+        .icon {
+            width: 50px;
+            /* Dimensione delle icone */
+            height: 50px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .icon:hover {
+            transform: scale(1.2);
+            /* Leggero zoom al passaggio del mouse */
+            opacity: 0.8;
+        }
+
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Centra orizzontalmente gli elementi figli */
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #1d4843;
+        }
+
+        form input,
+        form textarea,
+        form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            display: block;
+            margin: 0 auto;
+            background-color: #2a9d8f;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #1d4843;
+        }
+
+        footer {
+            background-color: #2a9d8f;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                font-size: 20px;
+            }
+
+            .menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                transition: max-height 0.3s ease-in-out;
+                overflow: hidden;
+                max-height: 0;
+            }
+
+            .menu li {
+                text-align: center;
+                margin: 10px 0;
+            }
+
+            .menu.active {
+                display: flex;
+                max-height: 500px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .contact-icons {
+                gap: 10px;
+                /* Spaziatura ridotta */
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Benvenuto nel mio Portfolio</h1>
+        <nav class="navbar">
+            <div class="logo"></div>
+            <ul class="menu">
+                <li><a href="index.html">Profilo</a></li>
+                <li><a href="progetti.html">Progetti</a></li>
+                <li><a href="contatti.html">Contatti</a></li>
+            </ul>
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Informazioni di Contatto</h2>
+        <div class="contact-icons">
+            <a href="mailto:gentilematteo1@gmail.com" target="_blank">
+                <img src="img/mail-line.png" alt="Icona per inviare un'email" class="icon">
+            </a>
+            <a href="https://www.linkedin.com/in/matteogentile1/" target="_blank">
+                <img src="img/linkedin-box-fill.png" alt="Icona per andare sul mio profilo linkedIn" class="icon">
+            </a>
+        </div> <br>
+        <h2>Invia un Messaggio</h2>
+        <form action="#" method="POST">
+            <label for="name">Nome</label>
+            <input type="text" id="name" name="name" placeholder="Il tuo nome" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="La tua email" required>
+
+            <label for="message">Messaggio</label>
+            <textarea id="message" name="message" rows="5" placeholder="Scrivi qui il tuo messaggio..."
+                required></textarea>
+
+            <button type="submit">Invia Form</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Il mio Portfolio</p>
+    </footer>
+
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            const menu = document.querySelector('.menu');
+            menu.classList.toggle('active');
+        })
+        // Seleziona il form
+        const form = document.querySelector('form');
+
+        // Aggiungi un event listener al momento del submit
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Previene il comportamento predefinito di invio del form
+
+            // Ottieni i dati inseriti nel form
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Salva i dati nel Local Storage come un oggetto
+            const contactInfo = {
+                name: name,
+                email: email,
+                message: message
+            };
+
+            // Converti l'oggetto in una stringa JSON e salvalo
+            localStorage.setItem('contactInfo', JSON.stringify(contactInfo));
+
+            // Conferma all'utente che i dati sono stati salvati
+            alert('Grazie! I tuoi dati sono stati salvati con successo.');
+
+            // Pulisce il form dopo il salvataggio
+            form.reset();
+        });
+    </script>
+
+</body>
+
+</html>

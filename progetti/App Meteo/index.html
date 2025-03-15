@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Meteo</title>
+    <style>
+        body {
+            background-color: lightblue;
+            font-family: Helvetica, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        .traccia {
+            background-color: whitesmoke;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        input,
+        button {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        #weather {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>App Meteo</h1>
+    <div class="traccia">
+        <p>
+            Esercizio: Crea un'app meteo che mostra le previsioni di una città
+            selezionata dall'utente utilizzando un'API esterna come OpenWeather.
+        </p>
+    </div>
+
+
+    <label for="citta">Città: </label>
+    <input type="text" id="cityInput" placeholder="Es. Milano, Roma, Napoli"> <!-- creazione input -->
+
+    <button onclick="getWeather()">Cerca</button> <!-- Creazione button che chiama la funzione getWeather() quando viene cliccato -->
+
+    <div id="weather"></div> <!-- Creazione div vuoto che sarà riempito dinamicamente con le imformazioni meteo -->
+
+
+
+    <script>
+        async function getWeather() { // Definisce una funzione asincrona per ottenere i dati meteo.
+            // Otteniamo la chiave API e il valore della città
+            const apiKey = "219766cc77f2fd4546632b85608dc539"; // chiave API ottenuta da OpenWeather
+            const city = document.getElementById("cityInput").value.trim(); // Ottiene il valore scritto nel campo input (cityInput) e rimuove gli eventuali spazi con trim().
+            // Controlliamo se l'utente ha inserito una città
+            if (!city) {    // Se l’utente non ha scritto nulla, mostra un alert e interrompe l’esecuzione con return.
+                alert("Inserisci una città");
+                return;
+            }
+
+            // Eseguiamo la richiesta all'API
+            try { // try { ... } è un costrutto di JavaScript che permette di "provare" un blocco di codice.  Se tutto va bene, il codice dentro try {} → viene eseguito normalmente. e c’è un errore (es. città inesistente, connessione assente), l’esecuzione salta direttamente al catch {} per evitare che il programma si blocchi.
+                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=it`); // fetch → Fa una richiesta HTTP a OpenWeather per ottenere i dati meteo della città. L'operazione è asincrona, quindi utilizziamo await per aspettare che la risposta arrivi prima di procedere. L'URL contiene diversi parametri che vengono passati per ottenere i dati desiderati. Indirizzo base dell’API per ottenere il meteo attuale. Nome della città che l’utente ha inserito nel campo di input. Chiave API personale per autenticarsi con OpenWeather. Specifica che vogliamo la temperatura in gradi Celsius (°C). Imposta la lingua italiana per la descrizione del meteo.
+                // controlliamo se la risposta è valida
+                if (!response.ok) {     // Se il server risponde con un errore (es. città inesistente), genera un errore. Interrompe l’esecuzione e va direttamente al catch().
+                    throw new Error("Città non trovata!");
+                }
+                // Convertiamo la risposta in JSON e aggiorniamo la pagina
+                const data = await response.json(); // await response.json(); Converte la risposta API in un oggetto JavaScript utilizzabile.
+
+                // Aggiorna il contenuto di <div id="weather"> con i dati ricevuti.
+                document.getElementById("weather").innerHTML = `
+                    <h2>${data.name}, ${data.sys.country}</h2>
+                    <p>Temperatura: ${data.main.temp}°C</p>
+                    <p>Umidità: ${data.main.humidity}%</p>
+                    <p>Condizioni: ${data.weather[0].description}</p>
+                    <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="Icona meteo">
+                `;
+
+            // Gestiamo gli errori
+            } catch (error) {
+                document.getElementById("weather").innerHTML = `<p style="color:red;">Errore: ${error.message}</p>`; // Se c’è un errore, il messaggio viene mostrato nel div <div id="weather"> in rosso.
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

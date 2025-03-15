@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITS Supermarket - Dettaglio Prodotto Vegan 2</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="img/Logo.PNG" type="image/png">
+</head>
+<body>
+    <header>
+        <a href="homepage.html">
+            <img src="img/Logo.PNG" alt="Logo ITS Supermarket" title="Clicca qui per andare alla homepage">
+        </a>
+        <h1>Dettaglio Prodotto</h1>
+    </header>
+    <div class="product-details">
+        <img src="img/vegan2.webp" alt="Prodotto Vegan 2">
+        <h2><strong>Patatine proteiche</strong></h2>
+        <p><strong>Categoria:</strong> <br> Vegan</p>
+        <p><strong>Descrizione:</strong> <br> Grazie a un apporto di 11 g di proteine in sole 100 calorie, le patatine proteiche sono perfette per non mandare fuori strada il tuo allenamento. In pratiche confezioni da 25 g, sono ideali per darti una spinta proteica o quando senti un certo languorino.</p>
+        <p><strong>Prezzo:</strong> €8.99</p>
+        <h3>Inserisci una recensione:</h3>
+        <form id="review-form">
+            <label for="rating">Valutazione (da 1 a 5):</label>
+            <input type="number" id="rating" name="rating" min="1" max="5" required>
+            
+            <label for="review">Recensione:</label>
+            <textarea id="review" name="review" rows="4" required></textarea>
+            
+            <button type="submit">Salva Valutazione</button>
+        </form>
+    </div>
+    <footer>
+        <div class="footer-section contacts">
+            <h3>Contatti</h3>
+            <p>Indirizzo: Via del Commercio, 123</p>
+            <p>Telefono: 0123456789</p>
+            <p>Email: info@its-supermarket.com</p>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>

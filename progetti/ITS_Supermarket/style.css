@@ -1,0 +1,172 @@
+header {
+    background-color: #dc4242;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+header img {
+    width: 120px;
+    height: auto;
+    cursor: pointer;
+}
+
+header p {
+    margin-left: 10px;
+}
+
+body {
+    background-color: #ebebeb;
+    font-size: 24px;
+    overflow-y: scroll;
+    margin: 20px;
+    font-style: italic;
+    text-align: center;
+
+}
+
+
+
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: #dc4242;
+    padding: 20px;
+  }
+  
+  .footer-section {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-section p {
+    margin: 0;
+  }
+
+  header {
+    background-color: #dc4242;
+    display: flex;
+    
+}
+
+.navbar {
+    background-color: black;
+    padding: 10px 0;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.navbar li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.separator {
+    color: white;
+}
+body{
+    background-color: #ebebeb; 
+}
+
+footer {
+    background-color: #dc4242;
+    padding: 20px;
+  }
+  
+  .footer-section {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-section p {
+    margin: 0;
+  }
+  .product-list figure:first-of-type img {
+    width: 300px;
+    height: auto;
+}
+.product-list figure:nth-of-type(2) img {
+    width: 300px;
+    height: auto;
+}
+header {
+    background-color: #dc4242;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.product-details {
+    margin: 20px;
+}
+
+.product-details img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: #dc4242;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.footer-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-container {
+  flex-grow: 1;
+}
+
+footer {
+  flex-shrink: 0;
+}
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+
